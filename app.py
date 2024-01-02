@@ -1,7 +1,13 @@
 from flask import Flask,render_template,url_for,request
 from doc_sender import send_docs
-from logger import logging
+from datetime import datetime
 import os
+
+LOG_DIRECTORY_NAME = "App logs"
+os.makedirs(LOG_DIRECTORY_NAME,exist_ok=True)
+CURRENT_TIME_STAMP = f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}"
+FILE_NAME =f"log_{CURRENT_TIME_STAMP}.txt"
+FILE_PATH = os.path.join(LOG_DIRECTORY_NAME,FILE_NAME)
 
 
 def get_data_structure(folder_path):
@@ -25,7 +31,6 @@ def get_data_structure(folder_path):
             data.append(data_item)
         else:
             print(f"Keep This file in another folder {item}")
-    logging.info("Successfully Get The Data From Direcotry !!")
     return data
 
 
@@ -47,7 +52,7 @@ def send():
         
         folder_path = str(request.form['folder_path'])
         subject = str(request.form['subject'])
-        body = str(request.form['body'])
+        content = str(request.form['body'])
 
 
         data = get_data_structure(folder_path=folder_path)
@@ -55,11 +60,13 @@ def send():
         sent_mail = []
         for student in data:
             forwarded_mail = []
-            send_docs(student_name=student['name'], student_email=student['email'], file_path=student['file_path'])
-            logging.info(f"Sent :- {student['name']}  --> {student['email']}")
+            send_docs(student_name=student['name'], student_email=student['email'], file_path=student['file_path'],content=content,subject=subject)
             forwarded_mail.append(student['name'])
             forwarded_mail.append(student['email'])
             sent_mail.append(tuple(forwarded_mail))
+            data_sent = student['name']+","+student['email']+'\n'
+            with open(FILE_PATH,'a+') as logfile:
+                logfile.write(data_sent)
 
         return render_template('final.html',sent_mails=sent_mail)
 

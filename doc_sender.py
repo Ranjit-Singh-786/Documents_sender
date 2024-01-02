@@ -7,21 +7,24 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 
-def send_docs(student_name, student_email , file_path):
+def send_docs(student_name, student_email , file_path , content , subject):
     # Your Gmail credentials
     sender_email = os.getenv('EMAIL')
     sender_password = os.getenv('PASSWORD')
-    sender_name = 'Ranjit Singh'
+    sender_name = 'Siddharth Singh'
 
     # Email content
-    subject = 'Certificate of Completion'
-    body = f"Dear {student_name},\n\nCongratulations on completing the course! Attached is your certificate.\n\nBest regards,\n{sender_name} \nUpflairs Pvt. Ltd. Jaipur Rajsthan"
+    subjective = subject
+    # body = f"Dear {student_name},\n\nCongratulations on completing the course! Attached is your certificate.\n\nBest regards,\n{sender_name} \nUpflairs Pvt. Ltd. Jaipur Rajsthan"
+
+
+    body = f"Dear {student_name},\n\n {content}.\n\nBest Regards Team Upflairs,\n{sender_name} \nUpflairs Pvt. Ltd. Jaipur Rajsthan"
 
     # Creating the email message
     message = MIMEMultipart()
     message['From'] = f'{sender_name} <{sender_email}>'
     message['To'] = student_email
-    message['Subject'] = subject
+    message['Subject'] = subjective
 
     # Attach the certificate file (replace 'certificate.pdf' with your actual file)
     with open(file_path, 'rb') as attachment:
