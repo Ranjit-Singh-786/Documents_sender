@@ -3,11 +3,6 @@ from doc_sender import send_docs
 from datetime import datetime
 import os
 
-LOG_DIRECTORY_NAME = "App logs"
-os.makedirs(LOG_DIRECTORY_NAME,exist_ok=True)
-CURRENT_TIME_STAMP = f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}"
-FILE_NAME =f"log_{CURRENT_TIME_STAMP}.txt"
-FILE_PATH = os.path.join(LOG_DIRECTORY_NAME,FILE_NAME)
 
 
 def get_data_structure(folder_path):
@@ -23,14 +18,14 @@ def get_data_structure(folder_path):
 
             #username editing
             username = user_name[0:-4]
-            email_id = username+"@gmail.com"
+            email_id = username
 
             data_item['name'] = student_name
             data_item['email'] = email_id
             data_item['file_path'] = file_path
             data.append(data_item)
         else:
-            print(f"Keep This file in another folder {item}")
+            print(f"You have one mismatch file in this folder : {item}")
     return data
 
 
@@ -57,16 +52,7 @@ def send():
 
         data = get_data_structure(folder_path=folder_path)
 
-        sent_mail = []
-        for student in data:
-            forwarded_mail = []
-            send_docs(student_name=student['name'], student_email=student['email'], file_path=student['file_path'],content=content,subject=subject)
-            forwarded_mail.append(student['name'])
-            forwarded_mail.append(student['email'])
-            sent_mail.append(tuple(forwarded_mail))
-            data_sent = student['name']+","+student['email']+'\n'
-            with open(FILE_PATH,'a+') as logfile:
-                logfile.write(data_sent)
+        sent_mail = send_docs(data=data,content=content,subject=subject)
 
         return render_template('final.html',sent_mails=sent_mail)
 
