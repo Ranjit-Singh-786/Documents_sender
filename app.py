@@ -55,6 +55,7 @@ def send():
         sent_mail = send_docs(data=data,content=content,subject=subject)
 
         return render_template('final.html',sent_mails=sent_mail)
+       
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0",port='8080',debug=True)

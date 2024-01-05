@@ -5,6 +5,7 @@ from email import encoders
 from email.mime.base import MIMEBase
 from dotenv import load_dotenv
 from datetime import datetime
+import pandas as pd 
 import os
 load_dotenv()
 
@@ -18,6 +19,7 @@ FILE_PATH = os.path.join(LOG_DIRECTORY_NAME,FILE_NAME)
 
 def send_docs(data, content , subject):
     # Mail getting
+    
     mails = pd.read_csv('mails_data.csv')
     mail = 0
     temp = 0
@@ -25,7 +27,7 @@ def send_docs(data, content , subject):
     total_iteration = mails.shape[0]*10
     iteration_count = 0
     for student in data:
-        if iteration_count <= total_iteration:
+        if iteration_count >= total_iteration:
             break
         if (temp <= 10) and (mail < mails.shape[0]):
             forwarded_mail = []
@@ -79,7 +81,6 @@ def send_docs(data, content , subject):
             except Exception as e:  #  <-- identifie the error
                 temp = 0 
                 mail += 1
-
         else:
             temp = 0
             mail +=1
