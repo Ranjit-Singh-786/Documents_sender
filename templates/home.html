@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Arvo&family=Noto+Sans&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="bootstrap.css">
-    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="static/bootstrap.css">
+    <link rel="stylesheet" href="static/bootstrap.min.css">
 
     <style>
         .ritik{
@@ -27,7 +27,7 @@
     </style>
 </head>
 <body  style="background-color: rgb(221, 244, 255)";>   
-    <script src="bootstrap.bundle.min.js"></script>
+    <script src="static/bootstrap.bundle.min.js"></script>
     <br>
 
     <div class="container-fluid">
@@ -42,53 +42,58 @@
         </div>
     </div>
     <br><br>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-3"></div>
-            <div class="col">
-                <div class="input-group">
-                    <span class="input-group-text">Directory Path :-</span>
-                    <textarea class="form-control" aria-label="With textarea"></textarea>
-                </div>
-            </div>
-            <div class="col-3"></div>
-        </div>
-<br>
-        <div class="row">
-            <div class="col-3"></div>
-            <div class="col">
-                <div class="input-group">
-                    <span class="input-group-text">Subject :-</span>
-                    <textarea class="form-control" aria-label="With textarea"></textarea>
-                </div>
-            </div>
-            <div class="col-3"></div>
-        </div> <br>
+    <form action="{{ url_for('send') }}" method="post">
 
-        <div class="row">
-            <div class="col-3"></div>
-            <div class="col">
-                <div class="input-group">
-                    <span class="input-group-text">Body :-</span>
-                    <textarea class="form-control a"    aria-label="With textarea"></textarea>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col">
+                    <div class="input-group">
+                        <span class="input-group-text">Directory Path :-</span>
+                        <textarea class="form-control" name="folder_path" aria-label="With textarea" required></textarea>
+                    </div>
+                </div>
+                <div class="col-3"></div>
+            </div>
+    <br>
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col">
+                    <div class="input-group">
+                        <span class="input-group-text">Subject :-</span>
+                        <textarea class="form-control" name="subject" aria-label="With textarea" required></textarea>
+                    </div>
+                </div>
+                <div class="col-3"></div>
+            </div> <br>
+    
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col">
+                    <div class="input-group">
+                        <span class="input-group-text">Body :-</span>
+                        <textarea class="form-control a"  name="body"  aria-label="With textarea" required></textarea>
+                    </div>
+                </div>
+                <div class="col-3"></div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-5"></div>
+                <div class="col">
+                    <button type="submit" class="btn btn-success">Send</button>
+                    <a href="http://127.0.0.1:8080/help" class="btn btn-warning" target="_blank">Help</a>
                 </div>
             </div>
-            <div class="col-3"></div>
-        </div>
-        <br><br>
-        <div class="row">
-            <div class="col-5"></div>
-            <div class="col">
-                <button type="submit" class="btn btn-success">Send</button>
-                <a href="http://127.0.0.1:8080/help" class="btn btn-warning" target="_blank">Help</a>
+            <br>
+            <div class="row">
+                <div class="col-10"></div>
+                <div class="col">coded by:- <b><i>Ritik Singh</i></b></div>
             </div>
         </div>
-        <br>
-        <div class="row">
-            <div class="col-10"></div>
-            <div class="col">coded by:- <b><i>Ritik Singh</i></b></div>
-        </div>
-    </div>
+
+
+    </form>
     
 </body>
 </html>
